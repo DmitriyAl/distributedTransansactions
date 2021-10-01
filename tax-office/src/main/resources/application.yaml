@@ -24,4 +24,4 @@ spring:
           use_jdbc_metadata_defaults: false
   sql:
     init:
-      mode: always
+      mode: never

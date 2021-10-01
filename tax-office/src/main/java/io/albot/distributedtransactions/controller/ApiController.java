@@ -5,14 +5,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 @RestController
 public class ApiController {
     @PostMapping(value = "save")
-    public TaxData save(@RequestBody TaxData taxData) throws InterruptedException {
+    public TaxData save(@RequestBody TaxData taxData) {
         System.out.println(taxData);
-        TimeUnit.SECONDS.sleep(10);
+        if (new Random().nextBoolean()) {
+            throw new RuntimeException();
+        }
         return taxData;
     }
 }

@@ -10,5 +10,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SocialNetworkData {
-    private Integer vkId;
+    private Long id;
+    private Long vkId;
 }

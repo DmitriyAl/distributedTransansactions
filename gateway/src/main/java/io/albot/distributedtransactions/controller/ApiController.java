@@ -3,6 +3,7 @@ package io.albot.distributedtransactions.controller;
 import io.albot.distributedtransactions.dto.User;
 import io.albot.distributedtransactions.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
@@ -15,8 +16,8 @@ public class ApiController {
     }
 
     @PostMapping(value = "save")
-    public Mono<User> save() {
-        return userService.save(null);
+    public Mono<User> save(@RequestBody User user) {
+        return userService.save(user);
     }
 
     public Mono<User> find(long id) {

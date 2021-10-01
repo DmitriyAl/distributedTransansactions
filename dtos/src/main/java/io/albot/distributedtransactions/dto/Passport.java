@@ -10,6 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Passport {
+    private Long id;
     private String firstName;
     private String lastName;
     private Integer series;
