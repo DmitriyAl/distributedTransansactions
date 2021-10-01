@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Random;
 
 @RestController
-public class ApiController {
+public class TaxOfficeController {
     @PostMapping(value = "save")
     public TaxData save(@RequestBody TaxData taxData) {
         System.out.println(taxData);
-        if (new Random().nextBoolean()) {
+        if (new Random().nextInt(10) < 5) {
             throw new RuntimeException();
         }
         return taxData;

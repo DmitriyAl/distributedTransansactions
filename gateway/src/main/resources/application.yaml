@@ -1,6 +1,8 @@
-passportUrl: "http://localhost:8082"
+passport-url: http://localhost:8082
 tax-office-url: http://localhost:8083
 social-network-url: http://localhost:8084
+retry-times: 10
+
 server:
   port: 8081
 spring:
