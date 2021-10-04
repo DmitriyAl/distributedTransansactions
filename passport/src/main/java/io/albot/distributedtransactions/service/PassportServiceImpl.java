@@ -7,7 +7,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.UUID;
+
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PassportServiceImpl implements PassportService {
     private final PassportRepository passportRepository;
@@ -20,6 +25,11 @@ public class PassportServiceImpl implements PassportService {
             System.out.println("repeatable insert");
             return passportRepository.findByJobId(passport.getJobId()).toDto();
         }
+    }
+
+    @Override
+    public void cleanUp(List<UUID> uuids) {
+        passportRepository.deleteAllByJobIdIn(uuids);
     }
 
     @Override

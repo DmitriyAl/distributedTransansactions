@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Random;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +24,12 @@ public class PassportController {
             throw new RuntimeException();
         }
         return passport;
+    }
+
+    @PostMapping(value = "clean")
+    public void cleanUp(@RequestBody List<UUID> uuids) throws InterruptedException {
+        System.out.println("cleanUp " + uuids);
+        TimeUnit.SECONDS.sleep(20);
+        passportService.cleanUp(uuids);
     }
 }
