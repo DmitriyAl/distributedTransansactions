@@ -9,7 +9,6 @@ import io.albot.distributedtransactions.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -37,7 +36,7 @@ public class CleanUpScheduler {
     private final WebClient webClient;
     private int counter;
 
-    @Scheduled(cron = "0/30 * * * * ?")
+//    @Scheduled(cron = "0/30 * * * * ?")
     public void cleanUpUsers() {
         List<Job> jobs = jobRepository.findAllByStatus(JobStatus.ERROR);
         List<UUID> uuids = jobs.stream().map(Job::getId).collect(Collectors.toList());

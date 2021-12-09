@@ -6,24 +6,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 public class TaxOfficeController {
+
     @PostMapping(value = "save")
     public TaxData save(@RequestBody TaxData taxData) {
         System.out.println(taxData);
-        if (new Random().nextInt(10) < 5) {
-            throw new RuntimeException();
+        if (taxData.getId() % 5 == 0) {
+            throw new RuntimeException(String.format("An exception during socialNetworkData saving with id %d has occurred", taxData.getId()));
         }
         return taxData;
     }
 
     @PostMapping(value = "clean")
-    public void cleanUp(@RequestBody List<UUID> uuids) throws InterruptedException {
+    public void cleanUp(@RequestBody List<UUID> uuids) {
         System.out.println("cleanUp " + uuids);
-        TimeUnit.SECONDS.sleep(40);
     }
 }

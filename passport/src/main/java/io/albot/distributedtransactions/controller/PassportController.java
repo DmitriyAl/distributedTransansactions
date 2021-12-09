@@ -8,28 +8,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequiredArgsConstructor
 public class PassportController {
     private final PassportService passportService;
+    private final AtomicInteger counter = new AtomicInteger();
 
     @PostMapping(value = "save")
     public Passport save(@RequestBody Passport passport) {
         passport = passportService.save(passport);
-        if (new Random().nextInt(10) > 5) {
-            throw new RuntimeException();
+        if (counter.incrementAndGet() % 3 == 0) {
+            throw new RuntimeException(String.format("An exception during passport saving with id %d has occurred", passport.getId()));
         }
         return passport;
     }
 
     @PostMapping(value = "clean")
-    public void cleanUp(@RequestBody List<UUID> uuids) throws InterruptedException {
+    public void cleanUp(@RequestBody List<UUID> uuids) {
         System.out.println("cleanUp " + uuids);
-        TimeUnit.SECONDS.sleep(20);
         passportService.cleanUp(uuids);
     }
 }
